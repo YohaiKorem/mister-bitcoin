@@ -1,0 +1,9 @@
+.contact-preview {
+  display: flex;
+  gap: 1em;
+  background-color: rgb(194, 204, 216);
+  padding: em(12px) em(12px);
+  max-width: em(600px);
+  border-radius: 1em;
+  cursor: pointer;
+}
