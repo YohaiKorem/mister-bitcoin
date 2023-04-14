@@ -1,4 +1,4 @@
-import './assets/scss/global.scss'
+import './assets/scss/main.scss'
 import { HomePage } from './pages/HomePage'
 import { MainHeader } from './cmps/MainHeader'
 import { MainFooter } from './cmps/MainFooter'
@@ -10,9 +10,8 @@ function App() {
     <div className="App main-layout">
       <MainHeader />
       {/* <HomePage /> */}
-      {/* <ContactPage /> */}
-      <StatisticsPage />
-      <MainFooter />
+      <ContactPage />
+      {/* <StatisticsPage /> */}
     </div>
   )
 }

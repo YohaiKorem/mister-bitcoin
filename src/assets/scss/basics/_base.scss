@@ -16,6 +16,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  & > * {
+    height: 100%;
+  }
 }
 
 img {
@@ -49,6 +52,8 @@ ul {
 button {
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  outline: none;
 
   * {
     pointer-events: none;
@@ -58,6 +63,10 @@ button {
 input {
   font-family: inherit;
   text-align: inherit;
+  border-radius: 1em;
+  border: none;
+  outline: none;
+  padding: em(8px) em(12px);
 }
 
 // MAC like scrollbar
@@ -78,4 +87,17 @@ input {
 
 ::-webkit-scrollbar-thumb:vertical:active {
   -webkit-border-radius: 100px;
+}
+
+.main {
+  height: calc(100% - $header-height);
+  padding-block-end: 1em;
+}
+
+.App {
+  background-color: $bgc1;
+  // padding-block-end: calc(em($header-height) * 2);
+}
+#root {
+  height: 100%;
 }

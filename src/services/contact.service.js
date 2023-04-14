@@ -10,7 +10,7 @@ const contacts = [
     _id: '5a56640269f443a5d64b32ca',
     name: 'Ochoa Hyde',
     email: 'ochoahyde@renovize.com',
-    imgUrl: 'src/assets/imgs/defaultUserImg.jpg',
+    imgUrl: '',
     phone: '+1 (968) 593-3824',
   },
   {

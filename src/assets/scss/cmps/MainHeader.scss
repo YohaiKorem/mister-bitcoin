@@ -1,0 +1,16 @@
+.main-header {
+  height: $header-height;
+  padding-block: 4em;
+  background: linear-gradient($bgc2, $bgc3);
+  align-items: center;
+  padding-inline: em($outer-padding);
+  .logo {
+    width: em(300px);
+    min-height: 3em;
+    img {
+      height: em(100px);
+      width: em(200px);
+      border-radius: 1em;
+    }
+  }
+}

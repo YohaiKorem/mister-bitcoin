@@ -23,7 +23,11 @@ export class StatisticsPage extends Component {
 
   render() {
     return (
-      <main className="statistics-page">
+      <main className="statistics-page main">
+        <div className="btns-container flex space-between">
+          <button className="btn btn-purple">Confirmed transactions</button>
+          <button className="btn btn-purple">Market price</button>
+        </div>
         <Chart data={this.state.marketPriceData} />
         <Chart data={this.state.confirmedTransactionsData} />
       </main>

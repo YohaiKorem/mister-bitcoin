@@ -1,9 +1,12 @@
-// Colors
-$clr1: #e01e5a;
-$clr2: #293241;
-$clr3: #5c3fc5;
-$clr4: #696969;
-$clr5: #e6e9ec;
+// BGCOLORS
+$bgc1: rgb(48 48 48);
+$bgc2: rgb(131 0 255);
+$bgc3: rgb(202 0 255);
+$bgc4: rgb(86, 50, 117);
+// FONT COLORS
+$fontclr1: rgb(209 212 219);
+$fontclr2: rgb(238 232 244);
+$fontclr3: rgb(131 0 255);
 
 $navHeight: 65px;
 
@@ -12,3 +15,8 @@ $mobile-breakpoint: 600px;
 $tablet-breakpoint: 768px;
 $normal-breakpoint: 900px;
 $wide-breakpoint: 1080px;
+
+$header-height: 44px;
+$footer-height: 44px;
+
+$outer-padding: (20px);

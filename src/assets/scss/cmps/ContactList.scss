@@ -1,6 +1,19 @@
 .contact-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, clamp(15%, 25%, 100%));
+  width: 100%;
   gap: em(10px);
-  place-self: center;
+  place-items: center;
+  margin-block-start: 1em;
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    grid-template-columns: repeat(auto-fit, (100%));
+  }
 }

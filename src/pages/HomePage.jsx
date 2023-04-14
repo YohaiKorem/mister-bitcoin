@@ -15,7 +15,7 @@ export class HomePage extends Component {
 
   render() {
     const { user, rate } = this.state
-    if (!user) return <div>loading</div>
+    if (!user) return <div className="page-loading-screen ">loading</div>
     return (
       <main className="home-page main-layout">
         <h1>Hello {user.name}</h1>

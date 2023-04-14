@@ -25,9 +25,15 @@
 .main-layout {
   display: grid;
   grid-template-columns: em(20px) 1fr em(20px);
+  @media (max-width: $tablet-breakpoint) {
+    grid-template-columns: em(10px) 1fr em(10px);
+  }
 
   & > *:not(.full) {
     grid-column: 2;
+    @media (max-width: $tablet-breakpoint) {
+      grid-column: 1/-1;
+    }
   }
   & .full {
     grid-column: 1/-1;

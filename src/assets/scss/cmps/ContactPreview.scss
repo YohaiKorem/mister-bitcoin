@@ -1,9 +1,29 @@
 .contact-preview {
-  display: flex;
+  grid-template-columns: em(150px) 1fr;
+  place-items: center;
+  display: grid;
   gap: 1em;
   background-color: rgb(194, 204, 216);
-  padding: em(12px) em(12px);
-  max-width: em(600px);
   border-radius: 1em;
+  padding: rem(10px) rem(14px);
+  min-width: 300px;
+  max-width: 400px;
   cursor: pointer;
+  .user-img {
+    max-width: em(80px);
+  }
+  .contact-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: em(10px);
+    h4 {
+      opacity: 0.9;
+    }
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    min-width: 100%;
+    max-width: 100%;
+    padding: em(8px) em(8px);
+  }
 }

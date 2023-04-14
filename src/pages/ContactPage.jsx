@@ -42,13 +42,13 @@ export class ContactPage extends Component {
 
   render() {
     const { contacts, selectedContactId, filterBy } = this.state
-    if (!contacts) return <div>Loading...</div>
+    if (!contacts) return <div className="page-loading-screen ">Loading...</div>
     return (
-      <main className="contact-page main-layout">
-        <ContactFilter
+      <main className="contact-page main-layout ">
+        {/* <ContactFilter
           onChangeFilter={this.onChangeFilter}
           filterBy={filterBy}
-        />
+        /> */}
         {selectedContactId ? (
           <ContactDetails contactId={this.state.selectedContactId} />
         ) : (

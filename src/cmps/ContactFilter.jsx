@@ -31,7 +31,7 @@ export class ContactFilter extends Component {
     const { name, phone, email } = this.state.filterBy
 
     return (
-      <form className="filter">
+      <form className="contact-filter">
         <section>
           <label htmlFor="name">Name</label>
           <input
