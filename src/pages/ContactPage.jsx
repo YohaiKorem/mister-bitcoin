@@ -45,10 +45,10 @@ export class ContactPage extends Component {
     if (!contacts) return <div className="page-loading-screen ">Loading...</div>
     return (
       <main className="contact-page main-layout ">
-        {/* <ContactFilter
+        <ContactFilter
           onChangeFilter={this.onChangeFilter}
           filterBy={filterBy}
-        /> */}
+        />
         {selectedContactId ? (
           <ContactDetails contactId={this.state.selectedContactId} />
         ) : (

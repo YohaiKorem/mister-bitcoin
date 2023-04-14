@@ -1,21 +1,26 @@
 import logo from '../assets/imgs/mister-bitcoin-logo.png'
-
 export function MainHeader() {
   return (
     <header className="main-header flex space-between full">
       <div className="logo ">
         <img src={logo} />
       </div>
-      <nav>
+      <nav className="main-nav">
         <ul className="flex space-between ">
           <li>
-            <a href="">Home</a>
+            <a href="">
+              <i class="fa-solid fa-house"></i>
+            </a>
           </li>
           <li>
-            <a href="">Contacts</a>
+            <a href="">
+              <i class="fa-regular fa-address-book"></i>
+            </a>
           </li>
           <li>
-            <a href="">Statistics</a>
+            <a href="">
+              <i class="fa-solid fa-chart-simple"></i>
+            </a>
           </li>
         </ul>
       </nav>

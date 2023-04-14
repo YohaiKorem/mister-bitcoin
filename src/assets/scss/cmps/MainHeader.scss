@@ -1,7 +1,7 @@
 .main-header {
   height: $header-height;
   padding-block: 4em;
-  background: linear-gradient($bgc2, $bgc3);
+  background: linear-gradient($bgc2, $bgc3, $bgc4);
   align-items: center;
   padding-inline: em($outer-padding);
   .logo {
@@ -11,6 +11,24 @@
       height: em(100px);
       width: em(200px);
       border-radius: 1em;
+    }
+  }
+  .main-nav {
+    width: 30%;
+    margin-inline-end: $outer-padding;
+    ul {
+      align-items: center;
+      gap: em(10px);
+      li,
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        i {
+          font-size: 2em;
+        }
+      }
     }
   }
 }
