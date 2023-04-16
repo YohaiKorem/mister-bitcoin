@@ -24,6 +24,9 @@
 
 .main-layout {
   display: grid;
+  min-height: 100vh;
+  min-width: 100vw;
+  grid-template-rows: $header-height 1fr;
   grid-template-columns: em(20px) 1fr em(20px);
   @media (max-width: $tablet-breakpoint) {
     grid-template-columns: em(10px) 1fr em(10px);

@@ -2,15 +2,33 @@ import { Component } from 'react'
 import { eventBus } from '../services/event-bus.service'
 import { contactService } from '../services/contact.service'
 import defaultImg from '../assets/imgs/defaultUserImg.jpg'
-import { SubNav } from './SubNav'
+import { SubNav } from '../cmps/SubNav'
+import { Link } from 'react-router-dom'
+
 export class ContactDetails extends Component {
   state = {
     contact: null,
   }
 
-  async componentDidMount() {
-    const contact = await contactService.getContactById(this.props.contactId)
-    this.setState({ contact })
+  componentDidMount() {
+    this.loadContact()
+  }
+
+  loadContact = async () => {
+    try {
+      const contact = await contactService.getContactById(
+        this.props.match.params.id
+      )
+      this.setState({ contact })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.loadContact()
+    }
   }
 
   render() {
@@ -19,7 +37,14 @@ export class ContactDetails extends Component {
 
     return (
       <section className="contact-details">
-        {/* <SubNav /> */}
+        <nav className="sub-nav">
+          <Link to={`/contact/edit/${contact._id}`} className="btn btn-purple">
+            Edit
+          </Link>
+          <Link to={`/contact`} className="btn btn-purple">
+            back
+          </Link>
+        </nav>{' '}
         {/* <button
           onClick={() =>
             eventBus.emit('onToggleContactDetails', null)

@@ -1,5 +1,6 @@
 .main-header {
-  height: $header-height;
+  grid-row: 1;
+  min-height: $header-height;
   padding-block: 4em;
   background: linear-gradient($bgc2, $bgc3, $bgc4);
   align-items: center;
@@ -9,13 +10,17 @@
     min-height: 3em;
     img {
       height: em(100px);
-      width: em(200px);
+      width: em(250px);
       border-radius: 1em;
     }
+  }
+  .mobile-menu-btn {
+    display: none;
   }
   .main-nav {
     width: 30%;
     margin-inline-end: $outer-padding;
+    transition: 0.6s;
     ul {
       align-items: center;
       gap: em(10px);
@@ -29,6 +34,32 @@
           font-size: 2em;
         }
       }
+    }
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    .main-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      transform: translate(100%);
+      min-height: 10em;
+      &.open {
+        transform: translate(15%);
+        background-color: $bgc3;
+        z-index: 1;
+      }
+      ul {
+        margin-top: em(10px);
+        flex-direction: column;
+        width: 100%;
+        gap: em(20px);
+        justify-content: space-between;
+      }
+    }
+    .mobile-menu-btn {
+      display: block;
+      font-size: 2rem;
     }
   }
 }

@@ -23,7 +23,6 @@ export class HomePage extends Component {
         <h1>Hello {user.name}</h1>
         <h3>Coins: {user.coins}</h3>
         <h3>BTC: {rate}</h3>
-        <StatisticsPage />
       </main>
     )
   }

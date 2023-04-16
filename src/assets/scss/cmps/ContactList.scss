@@ -1,7 +1,7 @@
 .contact-list {
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, clamp(15%, 25%, 100%));
+  grid-template-columns: repeat(auto-fit, clamp(em(300px), em(400px), 100%));
   width: 100%;
   gap: em(10px);
   place-items: center;
@@ -14,6 +14,7 @@
   }
 
   @media (max-width: $tablet-breakpoint) {
+    gap: 0;
     grid-template-columns: repeat(auto-fit, (100%));
   }
 }

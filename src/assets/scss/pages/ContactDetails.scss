@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100%;
   gap: em(10px);
-  background: linear-gradient(to right, $bgc1, $bgc4, $bgc4, $bgc4, $bgc1);
+  background: $gradient;
   color: $fontclr2;
   width: 100%;
   padding-block: 1em;
