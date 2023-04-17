@@ -4,10 +4,12 @@ import { contactService } from '../services/contact.service'
 import defaultImg from '../assets/imgs/defaultUserImg.jpg'
 import { SubNav } from '../cmps/SubNav'
 import { Link } from 'react-router-dom'
-
+import { TransferFunds } from '../cmps/TransferFunds'
+import { userService } from '../services/user.service'
 export class ContactDetails extends Component {
   state = {
     contact: null,
+    user: userService.getLoggedinUser(),
   }
 
   componentDidMount() {
@@ -25,6 +27,12 @@ export class ContactDetails extends Component {
     }
   }
 
+  onTransferCoins = async (amount) => {
+    const { user } = this.state
+    user.coins = await userService.changeBalance(-amount)
+    console.log(user.coins)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.loadContact()
@@ -32,7 +40,7 @@ export class ContactDetails extends Component {
   }
 
   render() {
-    const { contact } = this.state
+    const { contact, user } = this.state
     if (!contact) return <div>Loading...</div>
 
     return (
@@ -53,10 +61,11 @@ export class ContactDetails extends Component {
         <h2 className="contact-name"> {contact.name}</h2>
         <h3 className="contact-phone"> {contact.phone}</h3>
         <h3 className="contact-email"> {contact.email}</h3>
-        <form className="transfer-form">
-          <input type="text" />
-          <button className="btn btn-purple">Transfer</button>
-        </form>
+        <TransferFunds
+          contact={contact}
+          maxcCoins={user.coins}
+          onTransferCoins={(amount) => this.onTransferCoins(amount)}
+        />
       </section>
     )
   }

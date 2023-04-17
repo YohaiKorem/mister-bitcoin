@@ -1,10 +1,10 @@
 import './assets/scss/main.scss'
 import { HomePage } from './pages/HomePage'
 import { MainHeader } from './cmps/MainHeader'
-import { MainFooter } from './cmps/MainFooter'
 import { ContactPage } from './pages/ContactPage'
 import { ContactDetails } from './pages/ContactDetails'
 import { StatisticsPage } from './pages/StatisticsPage'
+import { Signup } from './pages/Signup'
 import {
   Route,
   HashRouter as Router,
@@ -21,11 +21,10 @@ function App() {
           <Route path="/contact/edit/:id?" component={ContactEdit} />
           <Route path="/contact/:id" component={ContactDetails} />
           <Route path="/contact" component={ContactPage} />
+          <Route path="/signup" component={Signup} />
           <Route path="/statistics" component={StatisticsPage} />
           <Route exact path="/" component={HomePage} />
         </Switch>
-        {/* <HomePage /> */}
-        {/* <ContactPage /> */}
       </div>
     </Router>
   )

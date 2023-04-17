@@ -31,7 +31,6 @@ export class ContactEdit extends Component {
   }
 
   onRemoveContact = async () => {
-    console.log('click')
     try {
       await contactService.removeContact({ ...this.state.contact._id })
       this.props.history.push('/')

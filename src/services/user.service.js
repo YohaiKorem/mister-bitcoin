@@ -1,26 +1,28 @@
-// import { storageService } from './async-storage.service'
+import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
 import { utilService } from './util.service'
-import { storageService } from './storage.service'
+// import { storageService } from './storage.service'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
-const demoUser = {
-  name: 'Yohai Korem',
-  coins: 100,
-  moves: [],
-}
+// const demoUser = {
+//   name: 'Yohai Korem',
+//   coins: 100,
+//   moves: [],
+// }
 
-saveLocalUser(demoUser)
+// saveLocalUser(demoUser)
 export const userService = {
-  // login,
-  // logout,
-  // signup,
+  login,
+  logout,
+  signup,
   getLoggedinUser,
   saveLocalUser,
   getUsers,
   getById,
   remove,
   update,
+  addMove,
+  changeBalance,
 }
 
 window.userService = userService
@@ -53,41 +55,61 @@ async function update(user) {
   await storageService.put('user', user)
 
   // user = await httpService.put(`user/${user._id}`, user)
-  // console.log('userService', user)
   // Handle case in which admin updates other user's details
-  // if (getLoggedinUser()._id === user._id) saveLocalUser(user)
+  if (getLoggedinUser()._id === user._id) saveLocalUser(user)
   return user
 }
 
-// async function login(userCred) {
-//   const user = await httpService.post('auth/login', userCred)
-//   if (user) {
-//     socketService.login(user._id)
-//     return saveLocalUser(user)
-//   }
-// }
-// async function signup(userCred) {
-//   if (!userCred.imgUrl)
-//     userCred.imgUrl =
-//       'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-//   // const user = await storageService.post('user', userCred)
-//   const user = await httpService.post('auth/signup', userCred)
-//   // socketService.login(user._id)
-//   return saveLocalUser(user)
-// }
-// async function logout() {
-//   sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
-//   socketService.logout()
-//   return await httpService.post('auth/logout')
-// }
+async function login(userCred) {
+  // const user = await httpService.post('auth/login', userCred)
 
-// async function changeScore(by) {
-//   const user = getLoggedinUser()
-//   if (!user) throw new Error('Not loggedin')
-//   user.score = user.score + by || by
-//   await update(user)
-//   return user.score
-// }
+  const users = await getUsers()
+
+  const user = users.filter((u) => userCred.name === u.name)
+  if (user) {
+    // socketService.login(user._id)
+    return saveLocalUser(user)
+  } else return null
+}
+async function signup(userCred) {
+  if (!userCred.imgUrl)
+    userCred.imgUrl =
+      'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+  let user = { ...userCred, coins: 100, moves: [] }
+
+  user = await storageService.post('user', user)
+  console.log('user in signup from async storage', user)
+  // const user = await httpService.post('auth/signup', userCred)
+  // socketService.login(user._id)
+  return saveLocalUser(user)
+}
+async function logout() {
+  sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+  // socketService.logout()
+  // return await httpService.post('auth/logout')
+}
+
+async function addMove(contact, amount) {
+  const user = getLoggedinUser()
+  const move = {
+    id: utilService.makeId(),
+    amount,
+    to: contact,
+    at: Date.now(),
+  }
+  user.moves.push(move)
+  await update(user)
+
+  return move
+}
+
+async function changeBalance(by) {
+  const user = getLoggedinUser()
+  if (!user) throw new Error('Not loggedin')
+  user.coins = user.coins + by || by
+  await update(user)
+  return user.coins
+}
 
 function saveLocalUser(user) {
   user = {

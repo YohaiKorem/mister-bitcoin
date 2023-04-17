@@ -46,6 +46,11 @@ class _MainHeader extends Component {
                   <i className="fa-solid fa-chart-simple"></i>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/signup">
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                </NavLink>
+              </li>
             </ul>
           </nav>
           <i

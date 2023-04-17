@@ -1,0 +1,18 @@
+.login-signup {
+  color: $fontclr2;
+  form,
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100%;
+  }
+  form {
+    gap: 1em;
+  }
+  .toggle-status {
+    align-self: center;
+    justify-self: center;
+  }
+}

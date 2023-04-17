@@ -1,7 +1,6 @@
 import { userService } from '../services/user.service'
 import { bitcoinService } from '../services/bitcoin.service'
-import { StatisticsPage } from '../pages/StatisticsPage'
-
+import { MovesList } from '../cmps/MovesList'
 import { Component } from 'react'
 export class HomePage extends Component {
   state = {
@@ -11,6 +10,7 @@ export class HomePage extends Component {
 
   async componentDidMount() {
     const user = userService.getLoggedinUser()
+    console.log(user)
     let rate = await bitcoinService.getRate(user.coins)
     this.setState({ rate, user })
   }
@@ -23,6 +23,7 @@ export class HomePage extends Component {
         <h1>Hello {user.name}</h1>
         <h3>Coins: {user.coins}</h3>
         <h3>BTC: {rate}</h3>
+        <MovesList moves={user.moves} />
       </main>
     )
   }
