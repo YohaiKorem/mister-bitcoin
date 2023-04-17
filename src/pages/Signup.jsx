@@ -48,7 +48,7 @@ export function Signup(props) {
 
   const handleLogout = () => {
     dispatch(logout())
-    props.history.push('/')
+    props.history.push('/signup')
   }
 
   const handleCallback = async (response) => {

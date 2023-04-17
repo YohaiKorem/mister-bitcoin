@@ -23,7 +23,9 @@ export class HomePage extends Component {
         <h1>Hello {user.name}</h1>
         <h3>Coins: {user.coins}</h3>
         <h3>BTC: {rate}</h3>
-        <MovesList moves={user.moves.slice(0, 3)} title={'Recent moves'} />
+        {user.moves && (
+          <MovesList moves={user.moves.slice(0, 3)} title={'Recent moves'} />
+        )}
       </main>
     )
   }
