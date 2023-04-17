@@ -18,6 +18,7 @@ function _TransferFunds(props) {
     if (transferAmount > maxCoins || transferAmount <= 0) return
     onTransferCoins(transferAmount)
     userService.addMove(contact, transferAmount)
+    props.history.push('/contact')
   }
 
   return (

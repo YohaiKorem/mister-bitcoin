@@ -97,7 +97,7 @@ async function addMove(contact, amount) {
     to: contact,
     at: Date.now(),
   }
-  user.moves.push(move)
+  user.moves.unshift(move)
   await update(user)
 
   return move
@@ -108,6 +108,7 @@ async function changeBalance(by) {
   if (!user) throw new Error('Not loggedin')
   user.coins = user.coins + by || by
   await update(user)
+  console.log(user.coins)
   return user.coins
 }
 

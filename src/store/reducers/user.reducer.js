@@ -6,19 +6,20 @@ const INITIAL_STATE = {
 
 export async function userReducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
-    case 'SPEND_BALANCE':
+    case 'SPEND_BALANCE': {
+      state = await state
       const { loggedInUser } = state
       return {
         ...state,
         loggedInUser: {
           ...loggedInUser,
-          balance: loggedInUser.balance - action.amount,
+          coins: await userService.changeBalance(-action.amount),
         },
       }
+    }
     case 'login': {
       const { userCred } = action
       const user = await userService.login(userCred)
-      console.log(user)
       return user
     }
     case 'logout':

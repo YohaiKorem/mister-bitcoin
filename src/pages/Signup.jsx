@@ -48,6 +48,7 @@ export function Signup(props) {
 
   const handleLogout = () => {
     dispatch(logout())
+    props.history.push('/')
   }
 
   const handleCallback = async (response) => {
@@ -60,19 +61,16 @@ export function Signup(props) {
     try {
       await dispatch(login(userCred))
       setLoginClicked(false)
-      // Redirect to board page
     } catch (err) {
       try {
         await dispatch(signup(userCred))
       } catch (err) {
         console.log('Cannot signup', err)
-        // Redirect to board page
       }
     }
   }
 
   const handleToggleForm = () => {
-    console.log('click')
     setSignupClicked((prevIsSignupClicked) => !prevIsSignupClicked)
     setLoginClicked((prevIsLoginClicked) => !prevIsLoginClicked)
   }
