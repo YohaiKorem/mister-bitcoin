@@ -21,6 +21,7 @@
     width: 30%;
     margin-inline-end: $outer-padding;
     transition: 0.6s;
+    padding: 1em;
     ul {
       align-items: center;
       gap: em(10px);
@@ -59,6 +60,7 @@
     }
     .mobile-menu-btn {
       display: block;
+      margin-inline-end: 0.5em;
       font-size: 2rem;
     }
   }
