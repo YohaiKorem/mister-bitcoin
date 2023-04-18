@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link, NavLink, withRouter } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { userService } from '../services/user.service'
+import { memo } from 'react'
 
-function _TransferFunds(props) {
+export const TransferFunds = memo((props) => {
   let { contact, maxCoins, onTransferCoins } = props
   const [transferAmount, setTransferAmount] = useState(0)
-
+  const navigate = useNavigate()
   const handleChange = (ev) => {
     const { value } = ev.target
     setTransferAmount(+value)
@@ -16,9 +17,8 @@ function _TransferFunds(props) {
   const handleSubmit = (ev) => {
     ev.preventDefault()
     if (transferAmount > maxCoins || transferAmount <= 0) return
-    onTransferCoins(transferAmount)
-    userService.addMove(contact, transferAmount)
-    props.history.push('/contact')
+    onTransferCoins(transferAmount, contact)
+    // navigate('/contact')
   }
 
   return (
@@ -29,11 +29,4 @@ function _TransferFunds(props) {
       </form>
     </section>
   )
-}
-const mapStateToProps = (state) => ({
-  loggedInUser: state.userModule.loggedInUser,
 })
-
-export const TransferFunds = connect(mapStateToProps)(
-  withRouter(_TransferFunds)
-)

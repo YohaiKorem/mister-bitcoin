@@ -20,12 +20,12 @@ export function MovesList(props) {
         <button
           className="btn btn-purple"
           onClick={() => setSortCriteria('date')}>
-          Sort by date
+          Sort by moves date
         </button>
         <button
           className="btn btn-purple"
           onClick={() => setSortCriteria('amount')}>
-          Sort by amount
+          Sort by moves amount
         </button>
       </div>
       {sortedMoves.length > 0 ? (
@@ -36,7 +36,7 @@ export function MovesList(props) {
               {!isDetailsCmp && (
                 <h3>
                   <Link
-                    to={`/contact/${move.to._id}`}>{`To: ${move.to.name}`}</Link>
+                    to={`/contact/${move.to?._id}`}>{`To: ${move.to?.name}`}</Link>
                 </h3>
               )}
 

@@ -65,7 +65,8 @@ async function login(userCred) {
 
   const users = await getUsers()
 
-  const user = users.filter((u) => userCred.name === u.name)
+  const user = users.find((u) => userCred.name === u.name)
+  console.log(user)
   if (user) {
     // socketService.login(user._id)
     return saveLocalUser(user)
@@ -89,8 +90,7 @@ async function logout() {
   // return await httpService.post('auth/logout')
 }
 
-async function addMove(contact, amount) {
-  const user = getLoggedinUser()
+async function addMove(contact, amount, user = getLoggedinUser()) {
   const move = {
     id: utilService.makeId(),
     amount,
@@ -98,18 +98,17 @@ async function addMove(contact, amount) {
     at: Date.now(),
   }
   user.moves.unshift(move)
-  await update(user)
+  user = await update(user)
 
-  return move
+  return user
 }
 
-async function changeBalance(by) {
-  const user = getLoggedinUser()
+async function changeBalance(amount, contact) {
+  let user = getLoggedinUser()
   if (!user) throw new Error('Not loggedin')
-  user.coins = user.coins + by || by
-  await update(user)
-  console.log(user.coins)
-  return user.coins
+  user.coins = user.coins - amount || amount
+  user = await addMove(contact, amount, user)
+  return user
 }
 
 function saveLocalUser(user) {

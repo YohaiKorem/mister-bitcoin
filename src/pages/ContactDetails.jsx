@@ -3,43 +3,39 @@ import { eventBus } from '../services/event-bus.service'
 import { contactService } from '../services/contact.service'
 import defaultImg from '../assets/imgs/defaultUserImg.jpg'
 import { SubNav } from '../cmps/SubNav'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { TransferFunds } from '../cmps/TransferFunds'
 import { MovesList } from '../cmps/MovesList'
 import { userService } from '../services/user.service'
 import { spendBalance } from '../store/actions/user.actions'
 import { useSelector, useDispatch } from 'react-redux'
-import { useState, useEffect } from 'react'
-export function ContactDetails({ match }) {
+import { useState, useEffect, useCallback } from 'react'
+export function ContactDetails() {
   const dispatch = useDispatch()
-
+  const params = useParams()
   const [contact, setContact] = useState(null)
-  const [user, setUser] = useState(userService.getLoggedinUser())
+  const user = useSelector((state) => state.userModule.loggedInUser)
 
   useEffect(() => {
     loadContact()
-  }, [match.params.id])
+    console.log('render')
+  }, [user, params.id])
 
   const loadContact = async () => {
     try {
-      const contact = await contactService.getContactById(match.params.id)
+      const contact = await contactService.getContactById(params.id)
       setContact(contact)
     } catch (err) {
       console.log(err)
     }
   }
 
-  const onTransferCoins = async (amount) => {
-    dispatch(spendBalance(amount))
-    // try {
-    //   const user = await dispatch(spendBalance(amount))
-    // } catch (error) {
-    //   console.log(error)
-    // }
+  const onTransferCoins = async (amount, contact) => {
+    dispatch(spendBalance(amount, contact))
   }
-  const contactMoves = () => {
-    return user.moves.filter((move) => move.to._id === contact._id)
-  }
+  const contactMoves = useCallback(() => {
+    return user.moves?.filter((move) => move.to?._id === contact?._id)
+  }, [user.moves, contact])
   if (!contact) return <div>Loading...</div>
 
   return (
@@ -59,7 +55,7 @@ export function ContactDetails({ match }) {
       <TransferFunds
         contact={contact}
         maxcCoins={user.coins}
-        onTransferCoins={(amount) => onTransferCoins(amount)}
+        onTransferCoins={(amount, contact) => onTransferCoins(amount, contact)}
       />
       <MovesList
         moves={contactMoves()}

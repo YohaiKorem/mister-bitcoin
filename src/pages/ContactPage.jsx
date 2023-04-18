@@ -5,68 +5,32 @@ import { ContactDetails } from './ContactDetails'
 import { ContactFilter } from '../cmps/ContactFilter'
 import { eventBus } from '../services/event-bus.service'
 import { Link } from 'react-router-dom'
-export class ContactPage extends Component {
-  state = {
-    contacts: null,
-    selectedContactId: null,
-    filterBy: {
-      name: '',
-      phone: '',
-      email: '',
-    },
-  }
-  async componentDidMount() {
-    this.loadContacts()
-    eventBus.on('onToggleContactDetails', (contactId) => {
-      this.toggleContactDetails(contactId)
-    })
-    window.addEventListener('resize', this.handleResize)
-  }
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadContacts, setFilterBy } from '../store/actions/contact.actions'
+export function ContactPage() {
+  const dispatch = useDispatch()
+  const contacts = useSelector((state) => state.contactModule.contacts)
+  const filterBy = useSelector((state) => state.contactModule.filterBy)
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
-  }
+  useEffect(() => {
+    dispatch(loadContacts())
+  }, [dispatch, filterBy])
 
-  handleResize = () => {
-    this.forceUpdate()
+  const onChangeFilter = (filterBy) => {
+    dispatch(setFilterBy(filterBy))
   }
-  loadContacts = async () => {
-    try {
-      const contacts = await contactService.query(this.state.filterBy)
-      this.setState({ contacts })
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  onChangeFilter = (filterBy) => {
-    this.setState({ filterBy: { ...filterBy } }, this.loadContacts)
-  }
-  componentDidUpdate() {
-    this.render()
-  }
+  const btnTxt = window.innerWidth < 768 ? '+' : 'Add a new contact'
+  if (!contacts) return <div className="page-loading-screen ">Loading...</div>
+  return (
+    <main className="contact-page main-layout ">
+      <Link to="contact/edit" className="btn btn-add-contact btn-purple">
+        {btnTxt}
+      </Link>
+      <ContactFilter onChangeFilter={onChangeFilter} filterBy={filterBy} />
 
-  toggleContactDetails = (contactId) => {
-    this.setState({ selectedContactId: contactId })
-  }
-
-  render() {
-    const btnTxt = window.innerWidth < 768 ? '+' : 'Add a new contact'
-    const { contacts, selectedContactId, filterBy } = this.state
-    if (!contacts) return <div className="page-loading-screen ">Loading...</div>
-    return (
-      <>
-        <main className="contact-page main-layout ">
-          <Link to="contact/edit" className="btn btn-add-contact btn-purple">
-            {btnTxt}
-          </Link>
-          <ContactFilter
-            onChangeFilter={this.onChangeFilter}
-            filterBy={filterBy}
-          />
-
-          <ContactList contacts={contacts} />
-        </main>
-      </>
-    )
-  }
+      <ContactList contacts={contacts} />
+    </main>
+  )
 }

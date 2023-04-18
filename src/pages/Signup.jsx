@@ -3,8 +3,11 @@ import { userService } from '../services/user.service'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { login, signup, logout } from '../store/actions/user.actions'
+import { useNavigate } from 'react-router-dom'
 export function Signup(props) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const loggedinUser = userService.getLoggedinUser()
   const [isLoginClicked, setLoginClicked] = useState(true)
   const [isSignupClicked, setSignupClicked] = useState(false)
@@ -28,7 +31,7 @@ export function Signup(props) {
     } catch (err) {
       console.log('Cannot login', err)
     } finally {
-      props.history.push('/')
+      navigate('/')
     }
   }
 
@@ -41,14 +44,14 @@ export function Signup(props) {
       console.log('Cannot signup', err)
     } finally {
       setTimeout(() => {
-        props.history.push('/')
+        navigate('/')
       }, 100)
     }
   }
 
   const handleLogout = () => {
     dispatch(logout())
-    props.history.push('/signup')
+    navigate('/')
   }
 
   const handleCallback = async (response) => {
